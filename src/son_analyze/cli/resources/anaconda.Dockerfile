@@ -32,6 +32,9 @@ RUN cd /son-analyze \
     && python3.5 setup.py develop \
     && echo 'Done'
 
+RUN sed -i '5 a cp /son-analyze/son-scikit/src/son_scikit/resources/Welcome.ipynb /home/jovyan/work/' /usr/local/bin/start-notebook.sh \
+    && sed -i '6 a cp /son-analyze/son-scikit/src/son_scikit/resources/helpers.py /home/jovyan/work/' /usr/local/bin/start-notebook.sh
+
 WORKDIR /home/jovyan/work
 
 USER jovyan
