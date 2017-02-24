@@ -51,7 +51,8 @@ class PrometheusData:
         if not self.is_success():
             return
         table = {
-            'cnt_cpu_perc': float
+            'cnt_cpu_perc': float,
+            'sonemu_rx_count_packets': float
         }  # type: Dict[str, Callable[[Any], Any]]
 
         def get_conv(key: str) -> Callable[[Any], Any]:
@@ -70,7 +71,9 @@ class PrometheusData:
         if not self.is_success():
             return
         for elt in self.raw['data']['result']:
-            elt_id = elt['metric']['id']
+            #print(elt)
+            elt_id = elt['metric']['vnf_name']
+            #print(elt_id)
             to_update_by_id = self._by_id.get(elt_id, [])
             to_update_by_id.append(elt)
             self._by_id[elt_id] = to_update_by_id
@@ -94,7 +97,7 @@ class PrometheusData:
             """Filter result and return elements containing the targeted
             `metric_name` and `target_id` fields"""
             tmp = result['metric']
-            return tmp['__name__'] == metric_name and tmp['id'] == target_id
+            return tmp['__name__'] == metric_name and tmp['vnf_name'] == target_id
 
         targets = [tmp for tmp in results if somefilter(tmp)]
         if len(targets) == 1:
@@ -107,7 +110,7 @@ class PrometheusData:
         """Add a new metric"""
         possible_collision = self.get_metric_values(
             metric['metric']['__name__'],
-            metric['metric']['id'])
+            metric['metric']['vnf_name'])
         if possible_collision:
             possible_collision['values'] += metric['values']
         else:

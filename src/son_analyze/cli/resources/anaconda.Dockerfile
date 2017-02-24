@@ -4,9 +4,15 @@ FROM jupyter/base-notebook
 
 USER root
 
-RUN conda install -y nomkl git pyyaml pandas \
+RUN conda install -y icu
+
+RUN conda install -y openblas
+
+RUN conda install -y nomkl git pyyaml statsmodels scipy cython matplotlib \
     # Install common packages, Ansible and Git
     && echo 'Done'
+
+RUN conda install -y pandas
 
 WORKDIR /son-analyze
 

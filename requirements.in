@@ -2,3 +2,6 @@ pyaml==15.8.2
 typing==3.5.0.1
 docker==2.0.2
 requests==2.9.1
+arrow==0.8.0
+pyculiar==0.0.5
+luminol==0.3.1

@@ -69,6 +69,7 @@ setup(
         'typing >= 3.5.0.1',
         'docker >= 2.0.2',
         'requests >= 2.9.1, < 2.11',
+	'arrow >= 0.8.0',
     ],
     zip_safe=False,
     entry_points={
